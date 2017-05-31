@@ -10,22 +10,52 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        app:srcCompat="@drawable/wallpaper"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/wallpaper" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find The Weather Information"
-        android:textSize="25sp"
+        android:text="The Weather App"
+        android:textSize="28sp"
+        android:textColor="@color/colorAqua"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="129dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="86dp"
+        android:ems="10"
+        android:textColorHint="@color/colorGrey"
+        android:textColor="@color/colorAccent"
+        android:inputType="textPersonName"
+        android:hint="Location"
+        android:layout_above="@+id/findLocation"
+        android:layout_alignLeft="@+id/findLocation"
+        android:layout_alignStart="@+id/findLocation" />
+
+    <Button
+        android:id="@+id/findLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find location"
+        android:background="@drawable/styles"
+        android:textColor="@color/colorGrey"
+        android:layout_marginBottom="59dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
 
 </RelativeLayout>
