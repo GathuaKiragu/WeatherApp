@@ -11,7 +11,7 @@ import okhttp3.Request;
  */
 
 public class WeatherService {
-    public static void findWeatherInfos(String location, Callback callback) {
+    public static void findWeatherInfo(String location, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
 
