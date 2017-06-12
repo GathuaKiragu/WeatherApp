@@ -18,7 +18,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'MY_WEATHER_APP', MyWeatherApp
+        it.buildConfigField 'String', 'MY_WEATHER_API', MyWeatherApi
     }
 }
 
