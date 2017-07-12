@@ -1,11 +1,18 @@
 package com.example.kiragu.weatherapp;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-
+import okhttp3.Response;
 /**
  * Created by kiragu on 5/31/17.
  */
@@ -29,48 +36,32 @@ public class WeatherService {
 
     }
 
-//    public ArrayList<Restaurant> processResults(Response response) {
-//        ArrayList<Restaurant> restaurants = new ArrayList<>();
-//
-//        try {
-//            String jsonData = response.body().string();
-//            if (response.isSuccessful()) {
-//                JSONObject yelpJSON = new JSONObject(jsonData);
-//                JSONArray businessesJSON = yelpJSON.getJSONArray("businesses");
-//                for (int i = 0; i < businessesJSON.length(); i++) {
-//                    JSONObject restaurantJSON = businessesJSON.getJSONObject(i);
-//                    String name = restaurantJSON.getString("name");
-//                    String phone = restaurantJSON.optString("display_phone", "Phone not available");
-//                    String website = restaurantJSON.getString("url");
-//                    double rating = restaurantJSON.getDouble("rating");
-//                    String imageUrl = restaurantJSON.getString("image_url");
-//                    double latitude = restaurantJSON.getJSONObject("location")
-//                            .getJSONObject("coordinate").getDouble("latitude");
-//                    double longitude = restaurantJSON.getJSONObject("location")
-//                            .getJSONObject("coordinate").getDouble("longitude");
-//                    ArrayList<String> address = new ArrayList<>();
-//                    JSONArray addressJSON = restaurantJSON.getJSONObject("location")
-//                            .getJSONArray("display_address");
-//                    for (int y = 0; y < addressJSON.length(); y++) {
-//                        address.add(addressJSON.get(y).toString());
-//                    }
-//
-//                    ArrayList<String> categories = new ArrayList<>();
-//                    JSONArray categoriesJSON = restaurantJSON.getJSONArray("categories");
-//
-//                    for (int y = 0; y < categoriesJSON.length(); y++) {
-//                        categories.add(categoriesJSON.getJSONArray(y).get(0).toString());
-//                    }
-//                    Restaurant restaurant = new Restaurant(name, phone, website, rating,
-//                            imageUrl, address, latitude, longitude, categories);
-//                    restaurants.add(restaurant);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return restaurants;
-//    }
+    public ArrayList<Weather> processResults(Response response) {
+        ArrayList<Weather> weathers = new ArrayList<>();
+        try {
+            String jsonData = response.body().string();
+            if (response.isSuccessful()) {
+                JSONObject openWeatherJSON = new JSONObject(jsonData);
+
+                JSONObject coordinates = openWeatherJSON.getJSONObject("sys");
+                JSONObject place = openWeatherJSON.getJSONObject("coord");
+                double longitude = coordinates.getDouble("lon");
+                double latitude = coordinates.getDouble("lat");
+                String name = place.getString("name");
+
+                ArrayList<String> description = new ArrayList<>();
+                JSONArray descriptionJSON = openWeatherJSON.getJSONArray("weather");
+                for (int y = 0; y < descriptionJSON.length(); y++) {
+                    description.add(descriptionJSON.getJSONObject(y).getString("description").toString());
+                }
+                Weather weather = new Weather(name, longitude, latitude, description);
+                weathers.add(weather);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return weathers;
+    }
 }
