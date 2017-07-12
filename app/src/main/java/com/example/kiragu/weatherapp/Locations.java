@@ -32,14 +32,17 @@ public class Locations extends AppCompatActivity {
         getLocation(location);
     }
 
+//method that recieves the responce from the api
     private void getLocation(String location) {
         final WeatherService weatherService = new WeatherService();
         weatherService.findWeatherInfo(location, new Callback() {
 
+// Called when the request is unsuccessfull
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
